@@ -1,5 +1,5 @@
 # Datasets and Obstacles
-.txt
+*.txt
 !cnn/terms_description.txt
 cnn/datasets/2D/*
 cnn/datasets/3D/*
@@ -8,6 +8,9 @@ cnn/obstacles/*
 # Saved models
 *.keras
 cnn/saved_models/*
+
+# keep every .gitkeep file
+!**/.gitkeep
 
 # Prerequisites
 *.d
