@@ -1,6 +1,6 @@
 # Datasets and Obstacles
 .txt
-!terms_description.txt
+!cnn/terms_description.txt
 cnn/datasets/2D/*
 cnn/datasets/3D/*
 cnn/obstacles/*
