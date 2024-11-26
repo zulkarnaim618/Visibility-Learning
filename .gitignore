@@ -1,3 +1,6 @@
+# Experimental
+rnn/
+
 # Datasets and Obstacles
 *.txt
 !cnn/terms_description.txt
