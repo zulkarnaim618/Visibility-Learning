@@ -1,13 +1,13 @@
 # Datasets and Obstacles
 .txt
 !terms_description.txt
-datasets/2D/*
-datasets/3D/*
-obstacles/*
+cnn/datasets/2D/*
+cnn/datasets/3D/*
+cnn/obstacles/*
 
 # Saved models
 *.keras
-saved_models/*
+cnn/saved_models/*
 
 # Prerequisites
 *.d
