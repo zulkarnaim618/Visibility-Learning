@@ -1,0 +1,4 @@
+cellXCount = number of cell horizontally
+cellYCount = number of cell vertically
+cellX = width of each cell
+cellY = height of each cell
