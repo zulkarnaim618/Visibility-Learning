@@ -1,3 +1,14 @@
+# Datasets and Obstacles
+.txt
+!terms_description.txt
+datasets/2D/*
+datasets/3D/*
+obstacles/*
+
+# Saved models
+*.keras
+saved_models/*
+
 # Prerequisites
 *.d
 
