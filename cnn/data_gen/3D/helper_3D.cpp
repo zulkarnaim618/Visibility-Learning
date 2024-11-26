@@ -281,7 +281,7 @@ void randomgen3D(Scene3D& scene, int pointCount, int cellXCount, int cellYCount,
     int perGridPoint;
     cellX = (scene.maxX-scene.minX)/cellXCount;
     cellY = (scene.maxY-scene.minY)/cellYCount;
-    cellZ = (scene.maxZ-scene.minZ)/cellZCount
+    cellZ = (scene.maxZ-scene.minZ)/cellZCount;
     perGridPoint = 1;
     int posCount, negCount;
     posCount = negCount = 0;
