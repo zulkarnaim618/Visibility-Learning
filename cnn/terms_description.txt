@@ -2,3 +2,33 @@ cellXCount = number of cell horizontally
 cellYCount = number of cell vertically
 cellX = width of each cell
 cellY = height of each cell
+
+
+Open buildings 2D:
+1. Download buildings data.
+2. Run preprocessing file on that. (takes around 1 hour)
+    It will create a single scene based on that buildings data and write the scene on a file.
+    Format:
+    a scene_id polygon_id vertex_id x y
+    .....
+    b scene_minX scene_maxX scene_minY scene_maxY
+    Example:
+    Say a scene has one only triangle. Then the written file will be kind of -
+    a 0 0 0 5 6
+    a 0 0 1 3 4
+    a 0 0 2 2 3
+    b 0 10 0 10
+3. Run gen_scene on any scene file to create sub scene based on some logic. I have implemented only random sampling. You should add deterministic grid by grid sampling. (can take a long time to execute based on what you want)
+4. Run select_scene on any scene file to only select scene based on area coverage.
+5. Run polygon_gen on any scene file to generate query data points.
+
+**6**. There is a visualization file. It takes any scene file and visualizes it.
+        + ---> zooms in
+        - ----> zooms out
+        mouse left drag ---> moves the scene
+        ....
+        Actually it has a lot of control. You should check the code to find about them.
+
+
+Bugs:
+1. There is a bug when creating embedding for polygon. It is a special case. I haven't fixed it. You should try to.
