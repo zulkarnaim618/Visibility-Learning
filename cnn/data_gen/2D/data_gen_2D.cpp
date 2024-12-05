@@ -7,13 +7,13 @@ int main () {
     double scene_height,scene_width,cellXCount,cellYCount;
     int obs_count,max_height,max_width,min_height,min_width;
     scene_height = scene_width = 256;
-    cellXCount = cellYCount = 32;
+    cellXCount = cellYCount = 64;
     double obs_area = 0;
     double obs_percent = .2;
     ofstream out("../../datasets/2D/test_coordinates.txt");
     ofstream out2("../../datasets/2D/test_encodings.txt");
     //while (obs_percent<=.45) {
-        for (int j=1;j<=10;j++) {
+        for (int j=1;j<=12000;j++) {
             Scene2D scene(scene_width,scene_height);
             cout<<obs_percent<<" "<<j<<endl;
             obs_count = 16;
@@ -39,7 +39,7 @@ int main () {
                 }
                 obs_count = sqrt(obs_count);
             }
-            randomgen_around_obs(scene,200,20,cellXCount,cellYCount,out,out2);
+            randomgen(scene,750,cellXCount,cellYCount,out,out2);
         }
         obs_percent += 0.1;
     //}
