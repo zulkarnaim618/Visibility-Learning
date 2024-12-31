@@ -27,13 +27,14 @@ cellY = height of each cell
 
 
 ## Visualization
-"visualization/visualize_polygon_scene.ipynb" takes a scene file as input and visualizes it.  
+1. Run "visualization/visualize_polygon_scene.ipynb" on a scene file to visualizes it.  
     ### Controls:  
         + ---> zooms in  
         - ---> zooms out  
         mouse left drag ---> moves the scene  
         ....  
         Actually it has a lot of control like generate encoding of current screen, predict, fit selected area to screen etc. You should check the code to find about them.  
+2. Run "visualization/visualize_dataset.ipynb" to visualize any dataset file.  
 
 
 ## Bugs:  
