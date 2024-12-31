@@ -3,7 +3,6 @@ rnn/data_gen/2D/
 rnn/data_gen/3D/
 rnn/dataloader/
 rnn/tf/
-rnn/visualization/
 
 
 # Datasets and Obstacles
