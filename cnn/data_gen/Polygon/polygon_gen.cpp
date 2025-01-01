@@ -3,6 +3,7 @@
 using namespace std;
 
 int main () {
+    srand(time(NULL));
     int cellXCount,cellYCount;
     cellXCount = cellYCount = 64;
     ifstream in("../obstacles/mexico_1000_2000_175_128_coverage_67_100.txt");

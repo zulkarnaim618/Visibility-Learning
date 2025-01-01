@@ -3,6 +3,7 @@
 using namespace std;
 
 int main () {
+    srand(time(NULL));
     int cellXCount,cellYCount, subXCount, subYCount;
     cellXCount = cellYCount = 64;
     subXCount = subYCount = 32;
