@@ -3,8 +3,9 @@
 using namespace std;
 
 int main () {
+    srand(time(NULL));
     ifstream in("dhaka_1000_2000_175_128_coverage_33_67.txt");
-    ofstream out("val_150.txt",ios::app);
+    ofstream out("test_5000.txt",ios::app);
     string type;
     int newSceneId = 0;
     int sceneId, obstacleId, vertexId;
@@ -19,7 +20,7 @@ int main () {
         if (in.eof()) break;
         if (type=="a") {
             in>>sceneId>>obstacleId>>vertexId>>x>>y;
-            if (sceneId>=25) break;
+            if (sceneId>=2500) break;
             if (prevSceneId==sceneId) {
                 if (prevObstacleId==obstacleId) {
                     Point2D vertex(x,y);
