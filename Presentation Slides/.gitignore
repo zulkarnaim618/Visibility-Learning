@@ -1,0 +1,54 @@
+# Experimental
+rnn/data_gen/2D/
+rnn/data_gen/3D/
+rnn/dataloader/
+rnn/tf/
+
+
+# Datasets and Obstacles
+*.txt
+!cnn/terms_description.txt
+cnn/datasets/2D/*
+cnn/datasets/3D/*
+cnn/obstacles/*
+
+# Saved models
+*.pth
+*.keras
+cnn/saved_models/*
+
+# keep every .gitkeep file
+!**/.gitkeep
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
