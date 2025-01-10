@@ -238,6 +238,7 @@ void generateScenes_gridSamplingCount(int divisions_x, int divisions_y, const un
         // Calculate step size for grid division
         float step_x = (scene.max_x - scene.min_x) / divisions_x;
         float step_y = (scene.max_y - scene.min_y) / divisions_y;
+        cout<<"width: "<<step_x<<" height: "<<step_y<<endl;
 
         for (int i = 0; i < divisions_x; ++i) {
             for (int j = 0; j < divisions_y; ++j) {
@@ -277,9 +278,9 @@ void generateScenes_gridSamplingCount(int divisions_x, int divisions_y, const un
 int main() {
     unordered_map<int,Scene> scenes;
 
-    parseInputFile("../../obstacles/polygon_coordinates_converted_mexico.txt", scenes);
+    parseInputFile("../../obstacles/mexico_1048576.txt", scenes);
 
-    generateScenes_gridSamplingCount(2, 2, scenes, "../../obstacles/mexico_4.txt");
+    generateScenes_randomSampling(1, 128, scenes, "../../obstacles/mexico_1048576_128.txt");
 
     return 0;
 }

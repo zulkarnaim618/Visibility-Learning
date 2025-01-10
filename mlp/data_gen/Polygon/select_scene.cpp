@@ -24,8 +24,6 @@ struct Scene {
     double min_x,max_x,min_y,max_y;
 };
 
-unordered_map<int,int> cnt;
-
 void parseInputFile(const std::string& filename, unordered_map<int,Scene>& scenes) {
     std::ifstream infile(filename);
     if (!infile) {
@@ -41,9 +39,7 @@ void parseInputFile(const std::string& filename, unordered_map<int,Scene>& scene
     while (infile >> type) {
         if (type=="a") {
             infile >>scene_id>> polygon_id >> vertex_id >> x >> y;
-            if (scene_id==100) break;
             scenes[scene_id].polygons[polygon_id].vertices.push_back({x, y});
-            //cout<<type<<" "<<scene_id<<" "<<polygon_id<<" "<<vertex_id<<" "<<x<<" "<<y<<endl;
         }
         else if (type=="b") {
             infile >> min_x >> max_x >> min_y >> max_y;
@@ -51,11 +47,9 @@ void parseInputFile(const std::string& filename, unordered_map<int,Scene>& scene
             scenes[scene_id].max_x = max_x;
             scenes[scene_id].min_y = min_y;
             scenes[scene_id].max_y = max_y;
-            cnt[scene_id] = scenes[scene_id].polygons.size();
+            cout<<"Input scene "<<scene_id<<" parsing finished"<<endl;
             scene_id++;
-            //cout<<type<<" "<<min_x<<" "<<max_x<<" "<<min_y<<" "<<max_y<<endl;
         }
-
     }
 }
 
