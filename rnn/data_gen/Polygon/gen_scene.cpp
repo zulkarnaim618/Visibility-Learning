@@ -106,21 +106,17 @@ void parseInputFile(const std::string& filename, unordered_map<int,Scene>& scene
     while (infile >> type) {
         if (type=="a") {
             infile >>scene_id>> polygon_id >> vertex_id >> x >> y;
-            if (scene_id>=25) break;
             scenes[scene_id].polygons[polygon_id].vertices.push_back({x, y});
-            //cout<<type<<" "<<scene_id<<" "<<polygon_id<<" "<<vertex_id<<" "<<x<<" "<<y<<endl;
         }
         else if (type=="b") {
-            cout<<scene_id<<endl;
             infile >> min_x >> max_x >> min_y >> max_y;
             scenes[scene_id].min_x = min_x;
             scenes[scene_id].max_x = max_x;
             scenes[scene_id].min_y = min_y;
             scenes[scene_id].max_y = max_y;
+            cout<<"Input scene "<<scene_id<<" parsing finished"<<endl;
             scene_id++;
-            //cout<<type<<" "<<min_x<<" "<<max_x<<" "<<min_y<<" "<<max_y<<endl;
         }
-
     }
 }
 
@@ -168,7 +164,7 @@ void generateScenes_randomSampling(int num_scenes, int scene_size, const unorder
             }
             outfile<<"b "<<x_min<<" "<<x_max<<" "<<y_min<<" "<<y_max<<"\n";
         }
-        cout<<t<<endl;
+        cout<<"Input scene "<<t-1<<" processing finished"<<endl;
     }
 }
 
@@ -220,8 +216,7 @@ void generateScenes_gridSamplingSize(float width, float height, const unordered_
                 ++scene_id;
             }
         }
-
-        std::cout << t << std::endl;
+        cout<<"Input scene "<<t-1<<" processing finished"<<endl;
     }
 }
 
@@ -273,8 +268,7 @@ void generateScenes_gridSamplingCount(int divisions_x, int divisions_y, const un
                 ++scene_id;
             }
         }
-
-        std::cout << t << std::endl;
+        cout<<"Input scene "<<t-1<<" processing finished"<<endl;
     }
 }
 
@@ -283,9 +277,9 @@ void generateScenes_gridSamplingCount(int divisions_x, int divisions_y, const un
 int main() {
     unordered_map<int,Scene> scenes;
 
-    parseInputFile("../obstacles/dhaka_1000_20000.txt", scenes);
+    parseInputFile("../../obstacles/polygon_coordinates_converted_mexico.txt", scenes);
 
-    generateScenes_randomSampling(1000, 128, scenes, "../obstacles/dhaka_1000_20000_1000_128.txt");
+    generateScenes_gridSamplingCount(2, 2, scenes, "../../obstacles/mexico_4.txt");
 
     return 0;
 }

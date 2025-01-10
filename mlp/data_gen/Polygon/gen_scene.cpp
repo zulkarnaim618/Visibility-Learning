@@ -106,25 +106,21 @@ void parseInputFile(const std::string& filename, unordered_map<int,Scene>& scene
     while (infile >> type) {
         if (type=="a") {
             infile >>scene_id>> polygon_id >> vertex_id >> x >> y;
-            if (scene_id>=25) break;
             scenes[scene_id].polygons[polygon_id].vertices.push_back({x, y});
-            //cout<<type<<" "<<scene_id<<" "<<polygon_id<<" "<<vertex_id<<" "<<x<<" "<<y<<endl;
         }
         else if (type=="b") {
-            cout<<scene_id<<endl;
             infile >> min_x >> max_x >> min_y >> max_y;
             scenes[scene_id].min_x = min_x;
             scenes[scene_id].max_x = max_x;
             scenes[scene_id].min_y = min_y;
             scenes[scene_id].max_y = max_y;
+            cout<<"Input scene "<<scene_id<<" parsing finished"<<endl;
             scene_id++;
-            //cout<<type<<" "<<min_x<<" "<<max_x<<" "<<min_y<<" "<<max_y<<endl;
         }
-
     }
 }
 
-void generateScenes(int num_scenes, int scene_size, const unordered_map<int,Scene>& scenes,
+void generateScenes_randomSampling(int num_scenes, int scene_size, const unordered_map<int,Scene>& scenes,
                     const std::string& output_filename) {
     std::ofstream outfile(output_filename);
     if (!outfile) {
@@ -168,16 +164,122 @@ void generateScenes(int num_scenes, int scene_size, const unordered_map<int,Scen
             }
             outfile<<"b "<<x_min<<" "<<x_max<<" "<<y_min<<" "<<y_max<<"\n";
         }
-        cout<<t<<endl;
+        cout<<"Input scene "<<t-1<<" processing finished"<<endl;
     }
 }
+
+void generateScenes_gridSamplingSize(float width, float height, const unordered_map<int, Scene>& scenes,
+                    const std::string& output_filename) {
+    std::ofstream outfile(output_filename);
+    if (!outfile) {
+        std::cerr << "Error creating output file: " << output_filename << std::endl;
+        exit(1);
+    }
+
+    int scene_id = 0;
+    int t = 0;
+
+    for (auto it1 = scenes.begin(); it1 != scenes.end(); ++it1) {
+        Scene scene = it1->second;
+        t++;
+
+        // Calculate number of divisions along each axis
+        int dim_x = ((scene.max_x - scene.min_x) / width);
+        int dim_y = ((scene.max_y - scene.min_y) / height);
+
+        for (int i = 0; i < dim_x; ++i) {
+            for (int j = 0; j < dim_y; ++j) {
+                // Determine bounds for the current grid cell
+                float x_min = scene.min_x + i * width;
+                float x_max = x_min + width;
+                float y_min = scene.min_y + j * height;
+                float y_max = y_min + height;
+
+                int new_polygon_id = 0;
+
+                // Clip polygons to the current grid cell
+                for (auto it = scene.polygons.begin(); it != scene.polygons.end(); ++it) {
+                    Polygon clippedPolygon = it->second;
+                    sutherlandHodgman(clippedPolygon, x_min, x_max, y_min, y_max);
+
+                    if (!clippedPolygon.vertices.empty()) {
+                        for (size_t vertex_id = 0; vertex_id < clippedPolygon.vertices.size(); ++vertex_id) {
+                            const Vertex& v = clippedPolygon.vertices[vertex_id];
+                            outfile << "a " << scene_id << " " << new_polygon_id << " " << vertex_id << " "
+                                    << std::fixed << std::setprecision(6) << v.x << " " << v.y << "\n";
+                        }
+                        ++new_polygon_id;
+                    }
+                }
+
+                outfile << "b " << x_min << " " << x_max << " " << y_min << " " << y_max << "\n";
+                ++scene_id;
+            }
+        }
+        cout<<"Input scene "<<t-1<<" processing finished"<<endl;
+    }
+}
+
+void generateScenes_gridSamplingCount(int divisions_x, int divisions_y, const unordered_map<int, Scene>& scenes,
+                    const std::string& output_filename) {
+    std::ofstream outfile(output_filename);
+    if (!outfile) {
+        std::cerr << "Error creating output file: " << output_filename << std::endl;
+        exit(1);
+    }
+
+    int scene_id = 0;
+    int t = 0;
+
+    for (auto it1 = scenes.begin(); it1 != scenes.end(); ++it1) {
+        Scene scene = it1->second;
+        t++;
+
+        // Calculate step size for grid division
+        float step_x = (scene.max_x - scene.min_x) / divisions_x;
+        float step_y = (scene.max_y - scene.min_y) / divisions_y;
+
+        for (int i = 0; i < divisions_x; ++i) {
+            for (int j = 0; j < divisions_y; ++j) {
+                // Determine bounds for the current grid cell
+                float x_min = scene.min_x + i * step_x;
+                float x_max = x_min + step_x;
+                float y_min = scene.min_y + j * step_y;
+                float y_max = y_min + step_y;
+
+                int new_polygon_id = 0;
+
+                // Clip polygons to the current grid cell
+                for (auto it = scene.polygons.begin(); it != scene.polygons.end(); ++it) {
+                    Polygon clippedPolygon = it->second;
+                    sutherlandHodgman(clippedPolygon, x_min, x_max, y_min, y_max);
+
+                    if (!clippedPolygon.vertices.empty()) {
+                        for (size_t vertex_id = 0; vertex_id < clippedPolygon.vertices.size(); ++vertex_id) {
+                            const Vertex& v = clippedPolygon.vertices[vertex_id];
+                            outfile << "a " << scene_id << " " << new_polygon_id << " " << vertex_id << " "
+                                    << std::fixed << std::setprecision(6) << v.x << " " << v.y << "\n";
+                        }
+                        ++new_polygon_id;
+                    }
+                }
+
+                outfile << "b " << x_min << " " << x_max << " " << y_min << " " << y_max << "\n";
+                ++scene_id;
+            }
+        }
+        cout<<"Input scene "<<t-1<<" processing finished"<<endl;
+    }
+}
+
+
 
 int main() {
     unordered_map<int,Scene> scenes;
 
     parseInputFile("../obstacles/dhaka_1000_20000.txt", scenes);
 
-    generateScenes(1000, 128, scenes, "../obstacles/dhaka_1000_20000_1000_128.txt");
+    generateScenes_randomSampling(1000, 128, scenes, "../obstacles/dhaka_1000_20000_1000_128.txt");
 
     return 0;
 }
