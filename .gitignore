@@ -6,6 +6,7 @@ rnn/tf/
 
 
 # Datasets and Obstacles
+*.csv
 *.txt
 !cnn/terms_description.txt
 cnn/datasets/2D/*

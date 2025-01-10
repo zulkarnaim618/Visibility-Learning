@@ -4,8 +4,8 @@ using namespace std;
 
 int main () {
     srand(time(NULL));
-    ifstream in("dhaka_1000_2000_175_128_coverage_0_33.txt");
-    ofstream out("test.txt",ios::app);
+    ifstream in("mexico_1000_20000_1000_128_coverage_0_33.txt");
+    ofstream out("test_6000.txt",ios::app);
     string type;
     int newSceneId = 0;
     int sceneId, obstacleId, vertexId;
@@ -20,7 +20,6 @@ int main () {
         if (in.eof()) break;
         if (type=="a") {
             in>>sceneId>>obstacleId>>vertexId>>x>>y;
-            if (sceneId>=2) break;
             if (prevSceneId==sceneId) {
                 if (prevObstacleId==obstacleId) {
                     Point2D vertex(x,y);
@@ -47,10 +46,12 @@ int main () {
             scene->setMinY(minY);
             scene->setMaxY(maxY);
             //
-            cout<<newSceneId<<endl;
-            random_rnn_gen(*scene,500,out);
-            newSceneId++;
+            if (newSceneId>=0 && newSceneId<6000) {
+                cout<<newSceneId<<endl;
+                random_rnn_gen(*scene,500,out);
+            }
             //
+            newSceneId++;
             delete scene;
             scene = new Scene2D();
             obs = new Obstacle2D();
