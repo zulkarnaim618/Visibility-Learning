@@ -14,6 +14,7 @@ cnn/datasets/3D/*
 cnn/obstacles/*
 
 # Saved models
+*.pt
 *.pth
 *.keras
 cnn/saved_models/*
