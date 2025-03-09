@@ -4,8 +4,8 @@ using namespace std;
 
 int main () {
     srand(time(NULL));
-    ifstream in("../../obstacles/mexico_1048576_128_cov_5_60.txt");
-    ofstream out("../../datasets/train_mexico_1200.txt");//,ios::app);
+    ifstream in("../../obstacles/test_scene_size_128_dhaka_area_40_50_2500.txt");
+    ofstream out("../../datasets/test_dhaka_50.txt");//,ios::app);
     string type;
     int newSceneId = 0;
     int sceneId, obstacleId, vertexId;
@@ -48,7 +48,7 @@ int main () {
             //
             //if (newSceneId>=0 && newSceneId<2500) {
             cout<<newSceneId<<endl;
-            random_transformer_gen(*scene,1200,out);
+            random_transformer_gen(*scene,1000,out);
             //}
             //
             newSceneId++;
